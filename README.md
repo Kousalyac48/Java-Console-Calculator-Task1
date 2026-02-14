@@ -1,41 +1,91 @@
-🧮 Project Report: Java Console Calculator
-Developer: [Kousalya C]
-Technical Stack: Java SE, JDK 17+, Terminal/CLI
+import java.util.Scanner;
+public class Calculator_Task1 {
+	public static void main(String[] args) {
+		Scanner scanner=new Scanner(System.in);
+		boolean running=true;
+		System.out.println("====Java Console Calculator====");
+		
+		while(running) {
+			System.out.println("\nSelect an operation:");
+			System.out.println("1. Add");
+			System.out.println("2. Subtract");
+			System.out.println("3. Multiply");
+			System.out.println("4. Divide");
+			System.out.println("5. Exit");
+			System.out.println("Choice:");
+			
+			int choice=getIntInput(scanner);
+			
+			if(choice==5){
+				running=false;
+				System.out.println("Goodbye!!");
+				break;
+			}
+			
+			if(choice<1|| choice>5) {
+				System.out.println("Invalid Choice. Please pick 1-5.");
+				continue;
+			}
+			
+			System.out.print("Enter first number:");
+			double num1=getDoubleInput(scanner);
+			
+			System.out.print("Enter second number:");
+			double num2=getDoubleInput(scanner);
+			
+			switch(choice) {
+			case 1: add(num1, num2);
+			break;
+			
+			case 2: subtract(num1,num2);
+			break;
+			
+			case 3: multiple(num1,num2);
+			break;
+			
+			case 4: divide(num1,num2);
+			break;
+			}
+		}
+		scanner.close();
+	}
 
-📌 Project Overview
-The Java Console Calculator is a command-line application designed to perform basic arithmetic operations. The primary objective was to implement a robust input-handling system that remains stable even when faced with invalid user data.
+	private static void add(double a, double b) {
+		System.out.printf("Result: %.2f + %.2f = %.2f\n",a,b,(a+b));
+	}
+	
+	private static void subtract(double a, double b) {
+		System.out.printf("Result: %.2f-%.2f = %.2f\n",a,b,(a-b));
+	}
+	
+	private static void multiple(double a,double b) {
+		System.out.printf("Result: %.2f * %.2f = %.2f\n",a,b,(a*b));
+	}
+	
+	private static void divide(double a, double b) {
+		if(b==0) {
+			System.out.println("Error : Cannot divide by zero!");
+		}else {
+			System.out.printf("Result:%.2f/ %.2f = %.2f\n",a,b,(a/b));
+		}
+	}
+	
+	private static int getIntInput(Scanner scanner) {
+		while(!scanner.hasNextInt()) {
+			System.out.print("Please enter a valid number:");
+			scanner.next();
+		}
+		return scanner.nextInt();
+	}
+	
+	private static double getDoubleInput(Scanner scanner) {
+		while(!scanner.hasNextDouble()) {
+			System.out.print("Please enter a valid number:");
+		}
+		return scanner.nextDouble();
+	}
+	}
 
-🛠️ Key Technical Features
-**1. Robust Input Validation**
-To prevent the program from crashing due to InputMismatchException (e.g., a user entering "abc" instead of a number), I implemented custom helper methods:
-getIntInput(): Validates menu selections.
-getDoubleInput(): Ensures numeric values for calculations.
-Buffer Clearing: Uses scanner.next() to clear invalid tokens from the input stream.
+	
 
-**2. Functional Decomposition**
-The logic is separated into distinct methods for better readability and maintenance:
-add(double a, double b)
-subtract(double a, double b)
-multiply(double a, double b)
-divide(double a, double b)
-
-**3. Logic & Control Flow**
-Looping: A while(running) loop allows users to perform multiple calculations without restarting the app.
-Switch Case: Efficiently maps user menu choices to the appropriate mathematical function.
-Precision Formatting: Used System.out.printf with %.2f to ensure output is rounded to two decimal places for professional display.
-
-Technical Implementation (Source Code)
-// Include your corrected Calculator_Task1.java code here
-
-🧪 Testing & Edge Cases
-Scenario,Input,Expected Result,Status
-Basic Addition,10 + 5.5,15.50,✅ Pass
-Division by Zero,10 / 0,"""Error: Cannot divide by zero!""",✅ Pass
-Invalid String Input,"""hello""","""Please enter a valid number:""",✅ Pass
-Exit Logic,Choice 5,"Program terminates with ""Goodbye!!""",✅ Pass
-
-**📈 Learning Outcomes**
-Mastered the use of the Scanner class for interactive CLI tools.
-Implemented Error Handling without using try-catch blocks by leveraging hasNext methods.
-Practiced Method Overloading logic and formatting floating-point numbers.
 
